@@ -1,0 +1,10 @@
+^C:\USERS\SEFUN\DEV\APPLIED-SOFTWARE-DESIGN\PROJECTS\ECE3574-FL22-PROJ2-SHEF4\BUILD\CMAKEFILES\0448DFD7A35DEEAE1A4481A3CBD4DD6B\RUN_TESTS_FORCE.RULE
+setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

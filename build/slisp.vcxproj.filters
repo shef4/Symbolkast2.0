@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\sefun\Dev\Applied-Software-Design\Projects\ece3574-fl22-proj2-shef4\tokenize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sefun\Dev\Applied-Software-Design\Projects\ece3574-fl22-proj2-shef4\expression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sefun\Dev\Applied-Software-Design\Projects\ece3574-fl22-proj2-shef4\environment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sefun\Dev\Applied-Software-Design\Projects\ece3574-fl22-proj2-shef4\interpreter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sefun\Dev\Applied-Software-Design\Projects\ece3574-fl22-proj2-shef4\slisp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\sefun\Dev\Applied-Software-Design\Projects\ece3574-fl22-proj2-shef4\tokenize.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sefun\Dev\Applied-Software-Design\Projects\ece3574-fl22-proj2-shef4\expression.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sefun\Dev\Applied-Software-Design\Projects\ece3574-fl22-proj2-shef4\environment.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sefun\Dev\Applied-Software-Design\Projects\ece3574-fl22-proj2-shef4\interpreter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\sefun\Dev\Applied-Software-Design\Projects\ece3574-fl22-proj2-shef4\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{277B3EBE-4337-3475-BE16-AFFF887DB3B0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{BA70504B-E8C2-319B-B965-BD77DD08191E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

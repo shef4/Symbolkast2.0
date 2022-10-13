@@ -1,0 +1,18 @@
+Start testing: Oct 12 13:14 Eastern Daylight Time
+----------------------------------------------------------
+1/1 Testing: unittests
+1/1 Test: unittests
+Command: "C:/Users/sefun/Dev/Applied-Software-Design/Projects/ece3574-fl22-proj2-shef4/build/Debug/unittests.exe"
+Directory: C:/Users/sefun/Dev/Applied-Software-Design/Projects/ece3574-fl22-proj2-shef4/build
+"unittests" start time: Oct 12 13:14 Eastern Daylight Time
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =  12.69 sec
+----------------------------------------------------------
+Test Failed.
+"unittests" end time: Oct 12 13:14 Eastern Daylight Time
+"unittests" time elapsed: 00:00:12
+----------------------------------------------------------
+
+End testing: Oct 12 13:14 Eastern Daylight Time

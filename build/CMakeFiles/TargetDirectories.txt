@@ -1,0 +1,5 @@
+C:/Users/sefun/Dev/Applied-Software-Design/Projects/ece3574-fl22-proj2-shef4/build/CMakeFiles/slisp.dir
+C:/Users/sefun/Dev/Applied-Software-Design/Projects/ece3574-fl22-proj2-shef4/build/CMakeFiles/unittests.dir
+C:/Users/sefun/Dev/Applied-Software-Design/Projects/ece3574-fl22-proj2-shef4/build/CMakeFiles/RUN_TESTS.dir
+C:/Users/sefun/Dev/Applied-Software-Design/Projects/ece3574-fl22-proj2-shef4/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/sefun/Dev/Applied-Software-Design/Projects/ece3574-fl22-proj2-shef4/build/CMakeFiles/ZERO_CHECK.dir

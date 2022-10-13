@@ -1,0 +1,10 @@
+^C:\USERS\SEFUN\DEV\APPLIED-SOFTWARE-DESIGN\PROJECTS\ECE3574-FL22-PROJ2-SHEF4\BUILD\CMAKEFILES\0448DFD7A35DEEAE1A4481A3CBD4DD6B\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/sefun/Dev/Applied-Software-Design/Projects/ece3574-fl22-proj2-shef4 -BC:/Users/sefun/Dev/Applied-Software-Design/Projects/ece3574-fl22-proj2-shef4/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/sefun/Dev/Applied-Software-Design/Projects/ece3574-fl22-proj2-shef4/build/SLISP.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
