@@ -7,7 +7,6 @@
 
 #include "interpreter_semantic_error.hpp"
 
-
 Expression not_proc(const std::vector<Atom> & vals){
   //num values
   if (vals.size() != 1){
@@ -16,8 +15,7 @@ Expression not_proc(const std::vector<Atom> & vals){
   Expression result;
   // type of data
   if (vals[0].type == BooleanType) {
-    result.head.type = BooleanType;
-     result.head.value.bool_value = !vals[0].value.bool_value;
+    result.head.set_bool(!vals[0].value.bool_value);
   } else {
     throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for not");
   }
@@ -30,15 +28,13 @@ Expression and_proc(const std::vector<Atom> & vals){
   if (vals.size() < 2){
     throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for and");
   }
-  Expression result;
-  result.head.value.bool_value = vals[0].value.bool_value;
+  Expression result(true);
   // type of data
-  for (std::size_t i=1; i<vals.size(); i++) {
+  for (std::size_t i=0; i<vals.size(); i++) {
     if (vals[i].type==BooleanType) {
-      result.head.type = BooleanType;
-      result.head.value.bool_value = result.head.value.bool_value&&vals[i].value.bool_value;
+      result.head.set_bool(result.head.get_bool()&&vals[i].value.bool_value);
     } else {
-      throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for or");
+      throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for and");
     }
   }
   // resulting expression
@@ -50,15 +46,11 @@ Expression or_proc(const std::vector<Atom> & vals){
   if (vals.size() < 2){
     throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for or");
   }
-  Expression result;
-  result.head.value.bool_value = vals[0].value.bool_value;
+  Expression result(false);
   // type of data
-  for (std::size_t i=1; i<vals.size(); i++) {
+  for (std::size_t i=0; i<vals.size(); i++) {
     if (vals[i].type==BooleanType) {
-      result.head.type = BooleanType;
-      result.head.value.bool_value = result.head.value.bool_value||vals[i].value.bool_value;
-      //std::cout <<"or_function - num val"<<vals[i].value.bool_value << std::endl;
-      //std::cout <<"or_function - res val"<<result.head.value.bool_value << std::endl;
+      result.head.set_bool(result.head.get_bool()||vals[i].value.bool_value);
     } else {
       throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for or");
     }
@@ -75,8 +67,7 @@ Expression log10_proc(const std::vector<Atom> & vals){
   Expression result;
   // type of data
   if (vals[0].type == NumberType ){
-    result.head.type = NumberType;
-    result.head.value.num_value = std::log10(vals[0].value.num_value);
+    result.head.set_num(std::log10(vals[0].value.num_value));
   } else {
     throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for log10");
   }
@@ -92,8 +83,7 @@ Expression pow_proc(const std::vector<Atom> & vals){
   Expression result;
   // type of data
   if (vals[0].type == NumberType && vals[1].type == NumberType){
-    result.head.type = NumberType;
-    result.head.value.num_value = std::pow(vals[0].value.num_value,vals[1].value.num_value);
+    result.head.set_num(std::pow(vals[0].value.num_value,vals[1].value.num_value));
   } else {
     throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for pow");
   }
@@ -104,22 +94,15 @@ Expression pow_proc(const std::vector<Atom> & vals){
 Expression add(const std::vector<Atom> & vals){
   //num values
   if (vals.size() < 2){
-    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for and");
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for add");
   }
-  Expression result;
-  result.head.value.num_value = vals[0].value.num_value;
-  //std::cout <<"add_function - num val "<<vals[0].value.num_value << std::endl;
-  //std::cout <<"add_function - number of vals "<<vals.size() << std::endl;
+  Expression result(0.0);
   // type of data
-  for (std::size_t i=1; i<vals.size(); i++) {
-
+  for (std::size_t i=0; i<vals.size(); i++) {
     if (vals[i].type==NumberType) {
-      result.head.type = NumberType;
-      result.head.value.num_value = result.head.value.num_value+vals[i].value.num_value;
-      //std::cout <<"add_function - num val "<<vals[i].value.num_value << std::endl;
-      //std::cout <<"add_function - res val "<<result.head.value.num_value << std::endl;
+      result.head.set_num(result.head.get_num()+vals[i].value.num_value);
     } else {
-      throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for or");
+      throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for add");
     }
   }
   // resulting expression
@@ -134,13 +117,11 @@ Expression subneg(const std::vector<Atom> & vals){
   Expression result;
   // type of data
   if (vals.size()==1 && vals[0].type == NumberType) {
-    result.head.type = NumberType;
-    result.head.value.num_value = -vals[0].value.num_value;
+    result.head.set_num(-vals[0].value.num_value);
   } else if (vals.size()==2 && vals[0].type == NumberType && vals[1].type == NumberType) {
-    result.head.type = NumberType;
-    result.head.value.num_value = vals[0].value.num_value - vals[1].value.num_value;
+    result.head.set_num(vals[0].value.num_value - vals[1].value.num_value);
   } else {
-    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for not");
+    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for neg");
   }
   // resulting expression
   return result;
@@ -149,17 +130,15 @@ Expression subneg(const std::vector<Atom> & vals){
 Expression mul(const std::vector<Atom> & vals){
    //num values
   if (vals.size() < 2){
-    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for and");
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for multiply");
   }
-  Expression result;
-  result.head.value.num_value = vals[0].value.num_value;
+  Expression result(1.0);
   // type of data
-  for (std::size_t i=1; i<vals.size(); i++) {
+  for (std::size_t i=0; i<vals.size(); i++) {
     if (vals[i].type==NumberType) {
-      result.head.type = NumberType;
-      result.head.value.num_value = result.head.value.num_value*vals[i].value.num_value;
+      result.head.set_num(result.head.get_num()*vals[i].value.num_value);
     } else {
-      throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for mul");
+      throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for multiply");
     }
   }
   // resulting expression
@@ -169,15 +148,14 @@ Expression mul(const std::vector<Atom> & vals){
 Expression div(const std::vector<Atom> & vals){
   //num values
   if (vals.size() != 2){
-    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for and");
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for divide");
   }
   Expression result;
   // type of data
   if (vals[0].type == NumberType && vals[1].type == NumberType) {
-    result.head.type = NumberType;
-    result.head.value.num_value = vals[0].value.num_value / vals[1].value.num_value;
+    result.head.set_num(vals[0].value.num_value / vals[1].value.num_value);
   } else {
-    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for not");
+    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for divide");
   }
   // resulting expression
   return result;
@@ -186,7 +164,7 @@ Expression div(const std::vector<Atom> & vals){
 Expression eq(const std::vector<Atom> & vals){
   //num values
   if (vals.size() != 2){
-    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for and");
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for equal to");
   }
   // type of data
   Expression val1;
@@ -195,10 +173,9 @@ Expression eq(const std::vector<Atom> & vals){
   val2.head = vals[1];
   Expression result;
   if (vals[0].type == NumberType && vals[1].type == NumberType) {
-    result.head.type = BooleanType;
-    result.head.value.bool_value = (val1==val2);
+    result.head.set_bool(val1==val2);
   } else {
-    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for not");
+    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for equal to");
   }
   // resulting expression
   return result;
@@ -207,50 +184,154 @@ Expression eq(const std::vector<Atom> & vals){
 Expression lt(const std::vector<Atom> & vals){
   //num values
   if (vals.size() != 2){
-    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for and");
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for less than");
   }
   // type of data
   Expression result;
   if (vals[0].type == NumberType && vals[1].type == NumberType) {
-    result.head.type = BooleanType;
-    result.head.value.bool_value = vals[0].value.num_value < vals[1].value.num_value;
+    result.head.set_bool(vals[0].value.num_value < vals[1].value.num_value);
   } else {
-    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for not");
+    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for less than");
   }
   // resulting expression
   return result;
 }
 
+
 Expression gt(const std::vector<Atom> & vals){
   //num values
   if (vals.size() != 2){
-    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for and");
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for greater than");
   }
   // type of data
   Expression result;
   if (vals[0].type == NumberType && vals[1].type == NumberType) {
-    result.head.type = BooleanType;
-    result.head.value.bool_value = vals[0].value.num_value > vals[1].value.num_value;
+    result.head.set_bool(vals[0].value.num_value > vals[1].value.num_value);
   } else {
-    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for not");
+    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for greater than");
   }
   // resulting expression
   return result;
 }
 
 Expression lteq(const std::vector<Atom> & vals){
-  return (lt(vals).head.value.bool_value||eq(vals).head.value.bool_value);
+  return (lt(vals).head.get_bool()||eq(vals).head.get_bool());
 }
 
 Expression gteq(const std::vector<Atom> & vals){
-  return (gt(vals).head.value.bool_value||eq(vals).head.value.bool_value);
+  return (gt(vals).head.get_bool()||eq(vals).head.get_bool());
 }
 
 Expression LiteralNumber(const Number & val){
   Expression new_exp;
-  new_exp.head.type = NumberType;
-  new_exp.head.value.num_value = val;
+  new_exp.head.set_num(val);
   return new_exp; 
+}
+
+Expression point(const std::vector<Atom> & vals){
+  //num values
+  if (vals.size() != 2){
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for point");
+  }
+  // type of data
+  Expression result;
+  if (vals[0].type == NumberType && vals[1].type == NumberType) {
+    Point point;
+    point.x = vals[0].value.num_value;
+    point.y = vals[1].value.num_value;
+    result.head.set_point(point);
+  } else {
+    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for point");
+  }
+  // resulting expression
+  return result;
+}
+
+Expression line(const std::vector<Atom> & vals){
+  //num values
+  if (vals.size() != 2){
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for line");
+  }
+  // type of data
+  Expression result;
+  if (vals[0].type == PointType && vals[1].type == PointType) {
+    Line line;
+    line.first = vals[0].value.point_value;
+    line.second = vals[1].value.point_value;
+    result.head.set_line(line);
+  } else {
+    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for line");
+  }
+  // resulting expression
+  return result;
+}
+
+Expression arc(const std::vector<Atom> & vals){
+  //num values
+  if (vals.size() != 3){
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for arc");
+  }
+  // type of data
+  Expression result;
+  if (vals[0].type == PointType && vals[1].type == PointType && vals[2].type == NumberType) {
+    Arc arc;
+    arc.center = vals[0].value.point_value;
+    arc.start = vals[1].value.point_value;
+    arc.span = vals[2].value.num_value;
+    result.head.set_arc(arc);
+  } else {
+    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for arc");
+  }
+  // resulting expression
+  return result;
+}
+
+Expression trig_sin(const std::vector<Atom> & vals){
+  //num values
+  if (vals.size() != 1){
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for sin");
+  }
+  Expression result;
+  // type of data
+  if (vals[0].type == NumberType){
+    result.head.set_num(std::sin(vals[0].value.num_value));
+  } else {
+    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for sin");
+  }
+  // resulting expression
+  return result;
+}
+
+Expression trig_cos(const std::vector<Atom> & vals){
+  //num values
+  if (vals.size() != 1){
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for cos");
+  }
+  Expression result;
+  // type of data
+  if (vals[0].type == NumberType){
+    result.head.set_num(std::cos(vals[0].value.num_value));
+  } else {
+    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for cos");
+  }
+  // resulting expression
+  return result;
+}
+
+Expression trig_atan(const std::vector<Atom> & vals){
+  //num values
+  if (vals.size() != 2){
+    throw InterpreterSemanticError("Error during evaluation: Invalid number of arguments for arctan");
+  }
+  Expression result;
+  // type of data
+  if (vals[0].type == NumberType && vals[1].type == NumberType){
+    result.head.set_num(std::atan(vals[0].value.num_value/vals[1].value.num_value));
+  } else {
+    throw InterpreterSemanticError("Error during evaluation: Invalid Type of arguments for arctan");
+  }
+  // resulting expression
+  return result;
 }
 
 Environment::Environment(){
@@ -262,6 +343,33 @@ Environment::Environment(){
 
   envmap["if"];
   envmap["if"].type = ProcedureType;
+
+  envmap["draw"];
+  envmap["draw"].type = ProcedureType;
+
+  envmap["point"];
+  envmap["point"].type = ProcedureType;
+  envmap["point"].proc = point;
+
+  envmap["line"];
+  envmap["line"].type = ProcedureType;
+  envmap["line"].proc = line;
+
+  envmap["arc"];
+  envmap["arc"].type = ProcedureType;
+  envmap["arc"].proc = arc;
+
+  envmap["sin"];
+  envmap["sin"].type = ProcedureType;
+  envmap["sin"].proc = trig_sin;
+
+  envmap["cos"];
+  envmap["cos"].type = ProcedureType;
+  envmap["cos"].proc = trig_cos;
+
+  envmap["arctan"];
+  envmap["arctan"].type = ProcedureType;
+  envmap["arctan"].proc = trig_atan;
 
   envmap["<"];
   envmap["<"].type = ProcedureType;
@@ -368,6 +476,33 @@ void Environment::reset(){
 
   envmap["if"];
   envmap["if"].type = ProcedureType;
+
+  envmap["draw"];
+  envmap["draw"].type = ProcedureType;
+
+  envmap["point"];
+  envmap["point"].type = ProcedureType;
+  envmap["point"].proc = point;
+
+  envmap["line"];
+  envmap["line"].type = ProcedureType;
+  envmap["line"].proc = line;
+
+  envmap["arc"];
+  envmap["arc"].type = ProcedureType;
+  envmap["arc"].proc = arc;
+
+  envmap["sin"];
+  envmap["sin"].type = ProcedureType;
+  envmap["sin"].proc = trig_sin;
+
+  envmap["cos"];
+  envmap["cos"].type = ProcedureType;
+  envmap["cos"].proc = trig_cos;
+
+  envmap["arctan"];
+  envmap["arctan"].type = ProcedureType;
+  envmap["arctan"].proc = trig_atan;
 
   envmap["<"];
   envmap["<"].type = ProcedureType;

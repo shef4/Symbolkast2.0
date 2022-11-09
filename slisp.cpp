@@ -20,7 +20,6 @@ int main(int argc, char **argv)
       //std::cout << "value at "<< counter << " = "<<std::string(argv[counter]) << std::endl;
   }
   //enter repl 
-  //TODO: not sure control c in here or evaluate or if rpel is correct
   if (argc == 1) {
     std::string program;
     std::cout << "slisp>";

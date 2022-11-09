@@ -1,7 +1,3 @@
-// ==================================================
-// DO NOT CHANGE THIS FILE
-// ==================================================
-
 #include "catch.hpp"
 
 #include <string>
@@ -11,7 +7,7 @@
 TEST_CASE( "Test Type Inference", "[types]" ) {
 
   Atom a;
-
+  
   std::string token = "True";
   REQUIRE(token_to_atom(token, a));
   REQUIRE(a.type == BooleanType);
@@ -26,7 +22,7 @@ TEST_CASE( "Test Type Inference", "[types]" ) {
   REQUIRE(token_to_atom(token, a));
   REQUIRE(a.type == NumberType);
   REQUIRE(a.value.num_value == 1);
-
+  
   token = "-1";
   REQUIRE(token_to_atom(token, a));
   REQUIRE(a.type == NumberType);

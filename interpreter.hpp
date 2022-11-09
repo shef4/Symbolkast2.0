@@ -4,7 +4,8 @@
 // system includes
 #include <string>
 #include <istream>
-#include <deque>
+#include <vector>
+
 
 // module includes
 #include "expression.hpp"
@@ -18,10 +19,11 @@ class Interpreter{
 public:
   bool parse(std::istream & expression) noexcept;
   Expression eval();
-private:
+protected:
   Expression eval(Expression & exp);
   Environment env;
   Expression ast;
+  std::vector<Atom> graphics;
 };
 
 

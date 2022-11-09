@@ -10,16 +10,12 @@
 class Environment{
 public:
   Environment();
-
   bool is_known(const Symbol & sym);
-
   bool is_exp(const Symbol & sym);
-  Expression get_exp(const Symbol & sym);
-  void add_exp(const Symbol & sym, const Expression & exp);
-
   bool is_proc(const Symbol & sym);
+  Expression get_exp(const Symbol & sym);
   Procedure get_proc(const Symbol & sym);
-
+  void add_exp(const Symbol & sym, const Expression & exp);
   void reset();
 private:
 
@@ -31,9 +27,7 @@ private:
     Procedure proc;
   };
 
-
-
   std::map<Symbol,EnvResult> envmap;
 };
-Environment set_std_env();
+
 #endif
