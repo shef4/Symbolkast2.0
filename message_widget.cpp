@@ -20,16 +20,21 @@ void MessageWidget::info(QString message) {
 
 void MessageWidget::error(QString message) {
   QPalette palette;
-  palette.setColor(QPalette::Base,Qt::red);
-  palette.setColor(QPalette::Text,Qt::white);
+  palette.setColor(QPalette::Base,QColor(Qt::red));
+  palette.setColor(QPalette::Text,QColor(Qt::white));
+  palette.setColor(QPalette::Highlight,QColor(Qt::red));
+  palette.setColor(QPalette::HighlightedText,QColor(Qt::white));
   message_txtfield->setPalette(palette);
   message_txtfield->setText(message);
+  message_txtfield->selectAll();
 }
 
 void MessageWidget::clear() {
   QPalette palette;
-  palette.setColor(QPalette::Base,Qt::white);
-  palette.setColor(QPalette::Text,Qt::black);
+  palette.setColor(QPalette::Base,QColor(Qt::white));
+  palette.setColor(QPalette::Text,QColor(Qt::black));
+  palette.setColor(QPalette::Highlight,QColor(Qt::white));
+  palette.setColor(QPalette::HighlightedText,QColor(Qt::black));
   message_txtfield->setPalette(palette);
   message_txtfield->setText(QString());
 }

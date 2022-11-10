@@ -19,4 +19,5 @@ CanvasWidget::CanvasWidget(QWidget * parent): QWidget(parent){
 
 void CanvasWidget::addGraphic(QGraphicsItem * item){
   scene->addItem(item);
+  scene->update();
 }

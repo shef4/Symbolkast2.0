@@ -192,7 +192,6 @@ void TestGUI::testArc() {
 }
 
 void TestGUI::testEnvRestore() {
-  
   QVERIFY(repl && replEdit);
   QVERIFY(canvas && scene);
 

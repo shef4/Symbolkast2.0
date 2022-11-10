@@ -7,8 +7,8 @@ class QGraphicsArcItem: public QGraphicsEllipseItem{
 
 public:
 
-  QGraphicsArcItem(qreal x, qreal y, qreal width, qreal height, double span,
-		   QGraphicsItem *parent = nullptr);
+  QGraphicsArcItem(qreal x, qreal y, qreal width, qreal height, qreal span, 
+		               QGraphicsItem *parent = nullptr);
 
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

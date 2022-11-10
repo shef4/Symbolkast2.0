@@ -25,25 +25,25 @@ void QtInterpreter::parseAndEvaluate(QString entry){
     Expression exp;
     try {
       exp = Interpreter::eval();
-
       //draw graphics
       for (int i = 0; i < graphics.size(); i++) {
         QGraphicsItem *graphic;
         if (graphics[i].type == PointType) {
-          graphic = new QGraphicsEllipseItem(qreal(graphics[i].value.point_value.x), 
-                                            qreal(graphics[i].value.point_value.y), 2, 2);
+          QPointF point(graphics[i].value.point_value.x -2, graphics[i].value.point_value.y-2);
+          graphic = new QGraphicsEllipseItem(point.x(), point.y(), 2, 2);
+
         } else if (graphics[i].type == LineType) {
-          graphic = new QGraphicsLineItem(qreal(graphics[i].value.line_value.first.x), 
-                                          qreal(graphics[i].value.line_value.first.y),
-                                          qreal(graphics[i].value.line_value.second.x), 
-                                          qreal(graphics[i].value.line_value.second.y));
+          QPointF first(graphics[i].value.line_value.first.x -2, graphics[i].value.line_value.first.y-2);
+          QPointF second(graphics[i].value.line_value.second.x -2, graphics[i].value.line_value.second.y-2);
+          graphic = new QGraphicsLineItem(first.x(), first.y(),second.x(), second.y());
+
         } else if (graphics[i].type == ArcType) {
-          graphic = new QGraphicsArcItem(qreal(graphics[i].value.arc_value.center.x), 
-                                        qreal(graphics[i].value.arc_value.center.y),
-                                        qreal(graphics[i].value.arc_value.start.x), 
-                                        qreal(graphics[i].value.arc_value.start.y),
-                                        qreal(graphics[i].value.arc_value.span));
+          QPointF center(graphics[i].value.arc_value.center.x -2, graphics[i].value.arc_value.center.y-2);
+          QPointF start(graphics[i].value.arc_value.start.x -2, graphics[i].value.arc_value.start.y-2);
+          graphic = new QGraphicsArcItem(center.x(), center.y(),start.x(), start.y(), qreal(graphics[i].value.arc_value.span));
+
         } 
+        
         emit drawGraphic(graphic);
       }
       //display result

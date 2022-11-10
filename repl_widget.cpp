@@ -46,22 +46,30 @@ void REPLWidget::keyPressEvent(QKeyEvent *event){
 }
 
 void REPLWidget::ReplMemory::new_entry(QString entry){
-  memory->append(entry);
+  if (!entry.isEmpty()) {
+    memory->append(entry);
+  }
   index = memory->size();
 }
+
 QString REPLWidget::ReplMemory::prev_entry(){
   QString entry = QString();
-  if (index){
+  if (index > 0){
     index--;
   }
-  entry = memory->at(index);
+  if (!memory->isEmpty()) {
+    entry = memory->at(index);
+  }
   return entry;
 }
+
 QString REPLWidget::ReplMemory::next_entry(){
   QString entry = QString();
   if (index < memory->size()-1){
     index++;
   }
-  entry = memory->at(index);
+  if (!memory->isEmpty()) {
+    entry = memory->at(index);
+  }
   return entry;
 }
